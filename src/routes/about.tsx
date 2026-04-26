@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Sparkles, Target, Users } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { PageHero } from "@/components/ui/SectionHeader";
 import { useI18n } from "@/lib/i18n";
+import { fetchTeamMembers, fetchPartners } from "@/services/content";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -25,6 +28,16 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   const { t, lang, dir } = useI18n();
+
+  const { data: teamMembers, isLoading: teamLoading } = useQuery({
+    queryKey: ["team-members"],
+    queryFn: fetchTeamMembers,
+  });
+
+  const { data: partners, isLoading: partnersLoading } = useQuery({
+    queryKey: ["partners"],
+    queryFn: fetchPartners,
+  });
 
   const values = [
     { icon: Sparkles, key: "about.values.rigor" },
@@ -66,6 +79,86 @@ function AboutPage() {
                 <p className="mt-4 font-serif text-lg font-semibold leading-snug">{t(key)}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Team Members Section */}
+        <div className="mt-16">
+          <h2 className="font-serif text-3xl font-semibold text-foreground mb-8">
+            Our Team
+          </h2>
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+            {teamLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="aspect-[3/4] rounded-xl bg-muted overflow-hidden">
+                  <Skeleton className="w-full h-full" />
+                </div>
+              ))
+            ) : teamMembers?.length ? (
+              teamMembers.map((member) => (
+                <div
+                  key={member.id}
+                  className="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-soft hover:shadow-elevation transition-all"
+                >
+                  {member.image_url ? (
+                    <img
+                      src={member.image_url}
+                      alt={member.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/40" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                    <h3 className="font-serif text-lg font-bold text-white">{member.name}</h3>
+                    <p className="text-sm text-white/80 font-medium">{member.role}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">Team members will be displayed here</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Partners Section */}
+        <div className="mt-16">
+          <h2 className="font-serif text-3xl font-semibold text-foreground mb-8">
+            Our Partners
+          </h2>
+          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {partnersLoading ? (
+              Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="rounded-xl bg-muted/50 p-6">
+                  <Skeleton className="w-full h-20" />
+                </div>
+              ))
+            ) : partners?.length ? (
+              partners.map((partner) => (
+                <div
+                  key={partner.id}
+                  className="rounded-xl bg-muted/30 p-6 hover:bg-muted/50 transition-colors"
+                >
+                  {partner.logo_url && (
+                    <img
+                      src={partner.logo_url}
+                      alt={partner.name}
+                      className="w-full h-20 object-contain mb-3"
+                    />
+                  )}
+                  <h3 className="font-serif text-sm font-semibold text-center">{partner.name}</h3>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <BookOpen className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">Partner organizations will be displayed here</p>
+              </div>
+            )}
           </div>
         </div>
 

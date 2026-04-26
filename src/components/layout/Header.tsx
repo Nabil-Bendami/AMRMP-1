@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -59,7 +59,43 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <a
+              href="https://facebook.com/amrmp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary transition-colors"
+            >
+              <Facebook className="h-4 w-4 text-foreground/70 hover:text-primary" />
+            </a>
+            <a
+              href="https://instagram.com/amrmp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary transition-colors"
+            >
+              <Instagram className="h-4 w-4 text-foreground/70 hover:text-primary" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/association-marocaine-de-recherche-en-management-public-amrmp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary transition-colors"
+            >
+              <Linkedin className="h-4 w-4 text-foreground/70 hover:text-primary" />
+            </a>
+            <a
+              href="https://twitter.com/amrmp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter)"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary transition-colors"
+            >
+              <Twitter className="h-4 w-4 text-foreground/70 hover:text-primary" />
+            </a>
             <button
               onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
               className="hidden sm:flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-3 py-1.5 text-xs font-semibold text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors"

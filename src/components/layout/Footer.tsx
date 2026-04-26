@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { SOCIAL_LINKS } from "@/lib/social";
 
 export function Footer() {
   const { t } = useI18n();
@@ -47,13 +48,32 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary-glow shrink-0" />
-                <a href="mailto:contact@amrmp.ma" className="hover:text-primary-glow">contact@amrmp.ma</a>
+                <a href="mailto:mehdigharrafi@gmail.com" className="hover:text-primary-glow">mehdigharrafi@gmail.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary-glow shrink-0" />
                 <span>+212 5XX-XXXXXX</span>
               </li>
             </ul>
+            <div className="mt-6">
+              <h4 className="font-serif text-sm uppercase tracking-wider text-sidebar-foreground/60 mb-4">
+                Follow Us
+              </h4>
+              <div className="flex gap-3">
+                {SOCIAL_LINKS.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.ariaLabel}
+                    className="flex items-center justify-center w-9 h-9 rounded-full bg-sidebar-border/30 hover:bg-primary hover:scale-110 transition-all duration-200"
+                  >
+                    <social.icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

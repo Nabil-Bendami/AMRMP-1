@@ -22,6 +22,7 @@ import { Route as AdminPublicationsRouteImport } from './routes/admin.publicatio
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
 import { Route as AdminAlbumsRouteImport } from './routes/admin.albums'
+import { Route as AdminAboutManagementRouteImport } from './routes/admin.about-management'
 
 const PublicationsRoute = PublicationsRouteImport.update({
   id: '/publications',
@@ -88,6 +89,11 @@ const AdminAlbumsRoute = AdminAlbumsRouteImport.update({
   path: '/albums',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAboutManagementRoute = AdminAboutManagementRouteImport.update({
+  id: '/about-management',
+  path: '/about-management',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/publications': typeof PublicationsRoute
+  '/admin/about-management': typeof AdminAboutManagementRoute
   '/admin/albums': typeof AdminAlbumsRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/publications': typeof PublicationsRoute
+  '/admin/about-management': typeof AdminAboutManagementRoute
   '/admin/albums': typeof AdminAlbumsRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/publications': typeof PublicationsRoute
+  '/admin/about-management': typeof AdminAboutManagementRoute
   '/admin/albums': typeof AdminAlbumsRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/publications'
+    | '/admin/about-management'
     | '/admin/albums'
     | '/admin/events'
     | '/admin/login'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/publications'
+    | '/admin/about-management'
     | '/admin/albums'
     | '/admin/events'
     | '/admin/login'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/publications'
+    | '/admin/about-management'
     | '/admin/albums'
     | '/admin/events'
     | '/admin/login'
@@ -285,10 +297,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAlbumsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/about-management': {
+      id: '/admin/about-management'
+      path: '/about-management'
+      fullPath: '/admin/about-management'
+      preLoaderRoute: typeof AdminAboutManagementRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAboutManagementRoute: typeof AdminAboutManagementRoute
   AdminAlbumsRoute: typeof AdminAlbumsRoute
   AdminEventsRoute: typeof AdminEventsRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -297,6 +317,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAboutManagementRoute: AdminAboutManagementRoute,
   AdminAlbumsRoute: AdminAlbumsRoute,
   AdminEventsRoute: AdminEventsRoute,
   AdminLoginRoute: AdminLoginRoute,

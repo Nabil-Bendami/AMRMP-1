@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LogOut, LayoutDashboard, Calendar, BookText, Images } from "lucide-react";
+import { LogOut, LayoutDashboard, Calendar, BookText, Images, Users } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
@@ -85,6 +85,7 @@ function AdminLayout() {
     { to: "/admin/events", key: "admin.section.events", icon: Calendar, exact: false },
     { to: "/admin/publications", key: "admin.section.publications", icon: BookText, exact: false },
     { to: "/admin/albums", key: "admin.section.albums", icon: Images, exact: false },
+    { to: "/admin/about-management", key: "About Management", icon: Users, exact: false },
   ];
 
   return (

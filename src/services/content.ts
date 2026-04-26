@@ -7,6 +7,7 @@ export type AlbumRow = Database["public"]["Tables"]["albums"]["Row"];
 export type AlbumImageRow = Database["public"]["Tables"]["album_images"]["Row"];
 export type AnalyticsRow = Database["public"]["Tables"]["analytics"]["Row"];
 export type TeamMemberRow = Database["public"]["Tables"]["team_members"]["Row"];
+export type PartnerRow = Database["public"]["Tables"]["partners"]["Row"];
 
 export async function fetchEvents(): Promise<EventRow[]> {
   const { data, error } = await supabase
@@ -54,9 +55,50 @@ export async function fetchTeamMembers(): Promise<TeamMemberRow[]> {
   const { data, error } = await supabase
     .from("team_members")
     .select("*")
+    .eq("is_active", true)
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data ?? [];
+}
+
+export async function fetchPartners(): Promise<PartnerRow[]> {
+  const { data, error } = await supabase
+    .from("partners")
+    .select("*")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function createPartner(partner: Database["public"]["Tables"]["partners"]["Insert"]): Promise<PartnerRow> {
+  const { data, error } = await supabase
+    .from("partners")
+    .insert(partner)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePartner(id: string, partner: Database["public"]["Tables"]["partners"]["Update"]): Promise<PartnerRow> {
+  const { data, error } = await supabase
+    .from("partners")
+    .update(partner)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deletePartner(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("partners")
+    .delete()
+    .eq("id", id);
+  if (error) throw error;
 }
 
 export async function createEvent(event: Database["public"]["Tables"]["events"]["Insert"]): Promise<EventRow> {
