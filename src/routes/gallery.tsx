@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -7,19 +6,7 @@ import { PageHero } from "@/components/ui/SectionHeader";
 import { useI18n } from "@/lib/i18n";
 import { fetchAlbums } from "@/services/content";
 
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Galerie — AMRMP" },
-      { name: "description", content: "Galerie photo des événements AMRMP." },
-      { property: "og:title", content: "Galerie AMRMP" },
-      { property: "og:description", content: "Retour en images." },
-    ],
-  }),
-  component: GalleryPage,
-});
-
-function GalleryPage() {
+export default function GalleryPage() {
   const { t, lang, dir } = useI18n();
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   const q = useQuery({ queryKey: ["albums"], queryFn: fetchAlbums });

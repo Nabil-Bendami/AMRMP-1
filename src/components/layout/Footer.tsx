@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SOCIAL_LINKS } from "@/lib/social";

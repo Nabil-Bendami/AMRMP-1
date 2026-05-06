@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, BookText, Images, Users, ArrowUpRight, TrendingUp } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,11 +5,7 @@ import { useI18n } from "@/lib/i18n";
 import { fetchEvents, fetchPublications, fetchAlbums, fetchAnalytics, fetchTeamMembers } from "@/services/content";
 import { VisitorChart } from "@/components/admin/VisitorChart";
 
-export const Route = createFileRoute("/admin/")({
-  component: AdminDashboard,
-});
-
-function AdminDashboard() {
+export default function AdminDashboard() {
   const { user, isAdmin } = useAuth();
   const { t } = useI18n();
 

@@ -1,22 +1,12 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export const Route = createFileRoute("/login")({
-  head: () => ({
-    meta: [
-      { title: "Connexion — AMRMP" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
-  component: LoginRedirect,
-});
-
-function LoginRedirect() {
+export default function LoginRedirect() {
   const navigate = useNavigate();
 
   useEffect(() => {
     // Redirect to admin login page
-    navigate({ to: "/admin/login", replace: true });
+    navigate("/admin/login", { replace: true });
   }, [navigate]);
 
   return (

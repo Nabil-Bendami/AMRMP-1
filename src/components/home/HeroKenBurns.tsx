@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useI18n } from "@/lib/i18n";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";

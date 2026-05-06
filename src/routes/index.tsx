@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, BookText, Calendar, Sparkles } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -10,11 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { fetchEvents, fetchPublications } from "@/services/content";
 import { mockEvents, mockPublications } from "@/data/mock";
 
-export const Route = createFileRoute("/")({
-  component: HomePage,
-});
-
-function HomePage() {
+export default function HomePage() {
   const { t, dir } = useI18n();
 
   const eventsQ = useQuery({ queryKey: ["events"], queryFn: fetchEvents });

@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Edit, Trash2, Users, Building } from "lucide-react";
@@ -19,11 +18,7 @@ import { PartnerForm } from "@/components/admin/PartnerForm";
 import { fetchTeamMembers, fetchPartners, deleteTeamMember, deletePartner, type TeamMemberRow, type PartnerRow } from "@/services/content";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/about-management")({
-  component: AboutManagement,
-});
-
-function AboutManagement() {
+export default function AboutManagement() {
   const [selectedTeamMember, setSelectedTeamMember] = useState<TeamMemberRow | null>(null);
   const [selectedPartner, setSelectedPartner] = useState<PartnerRow | null>(null);
   const [isTeamMemberDialogOpen, setIsTeamMemberDialogOpen] = useState(false);

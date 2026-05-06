@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Edit, Trash2, Calendar, MapPin } from "lucide-react";
@@ -17,11 +16,7 @@ import { EventForm } from "@/components/admin/EventForm";
 import { fetchEvents, createEvent, updateEvent, deleteEvent, type EventRow } from "@/services/content";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/events")({
-  component: EventsManagement,
-});
-
-function EventsManagement() {
+export default function EventsManagement() {
   const [selectedEvent, setSelectedEvent] = useState<EventRow | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const queryClient = useQueryClient();

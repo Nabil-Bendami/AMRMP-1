@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Edit, Trash2, Upload, X, FileText, Loader2 } from "lucide-react";
@@ -29,11 +28,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/publications")({
-  component: PublicationsManagement,
-});
-
-function PublicationsManagement() {
+export default function PublicationsManagement() {
   // All hooks must be called at the top level, before any conditional returns
   const { user, isAdmin } = useAuth();
   const queryClient = useQueryClient();

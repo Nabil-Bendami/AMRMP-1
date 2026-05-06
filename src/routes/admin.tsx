@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
+import { Outlet, Link, useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { LogOut, LayoutDashboard, Calendar, BookText, Images, Users } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -7,17 +7,7 @@ import { useI18n } from "@/lib/i18n";
 import { toast } from "sonner";
 import adminLogo from "@/assets/téléchargement.png";
 
-export const Route = createFileRoute("/admin")({
-  head: () => ({
-    meta: [
-      { title: "Administration — AMRMP" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
-  component: AdminLayout,
-});
-
-function AdminLayout() {
+export default function AdminLayout() {
   const { user, loading, isAuthenticated, isAdmin } = useAuth();
   const { t } = useI18n();
   const navigate = useNavigate();
@@ -25,40 +15,13 @@ function AdminLayout() {
   // Allow login route to render immediately, even during loading
   const isLoginRoute = window.location.pathname === '/admin/login';
 
-  useEffect(() => {
-    if (!loading) {
-      console.log('Admin layout check - isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin, 'isLoginRoute:', isLoginRoute);
-      
-      // If not authenticated, redirect to login
-      if (!isAuthenticated) {
-        console.log('Not authenticated, redirecting to login');
-        if (!isLoginRoute) {
-          navigate({ to: "/admin/login" });
-        }
-      } 
-      // If authenticated but not admin, redirect to login
-      else if (!isAdmin) {
-        console.log('Authenticated but not admin, redirecting to login');
-        if (!isLoginRoute) {
-          navigate({ to: "/admin/login" });
-        }
-      }
-      // If authenticated AND admin, allow access
-      else {
-        console.log('User is authenticated and admin, allowing access');
-      }
-    }
-  }, [loading, isAuthenticated, isAdmin, isLoginRoute, navigate]);
-
   // If on login route, always render the outlet (login form)
   if (isLoginRoute) {
-    console.log('On login route, rendering outlet');
     return <Outlet />;
   }
 
   // Show loading for other admin routes
   if (loading) {
-    console.log('Still loading, showing loading screen');
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-sm text-muted-foreground">{t("common.loading")}</div>
@@ -66,18 +29,17 @@ function AdminLayout() {
     );
   }
 
-  // Only render admin dashboard if authenticated AND is admin
+  // If not authenticated or not admin, redirect to login
   if (!isAuthenticated || !isAdmin) {
-    console.log('Not authenticated or not admin, rendering outlet for redirect');
-    return <Outlet />;
+    return <Navigate to="/admin/login" replace />;
   }
 
-  console.log('Rendering authenticated admin layout');
+  // User is authenticated and admin, render the admin layout
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     toast.success(t("admin.signout"));
-    navigate({ to: "/admin/login" });
+    navigate("/admin/login");
   };
 
   const navItems = [

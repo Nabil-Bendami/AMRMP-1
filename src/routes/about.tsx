@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Sparkles, Target, Users } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -7,26 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { fetchTeamMembers, fetchPartners } from "@/services/content";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "À propos — AMRMP" },
-      {
-        name: "description",
-        content:
-          "L'Association Marocaine de Recherche en Management Public fédère chercheurs et praticiens.",
-      },
-      { property: "og:title", content: "À propos de l'AMRMP" },
-      {
-        property: "og:description",
-        content: "Mission, valeurs et engagement de l'association.",
-      },
-    ],
-  }),
-  component: AboutPage,
-});
-
-function AboutPage() {
+export default function AboutPage() {
   const { t, lang, dir } = useI18n();
 
   const { data: teamMembers, isLoading: teamLoading } = useQuery({

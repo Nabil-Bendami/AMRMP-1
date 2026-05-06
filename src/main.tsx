@@ -1,13 +1,12 @@
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from '@tanstack/react-router';
+import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { I18nProvider } from '@/lib/i18n';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { getRouter } from './router';
+import { AppRoutes } from './AppRoutes';
 import './styles.css';
 
-const router = getRouter();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -23,7 +22,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        <RouterProvider router={router} />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
         <Toaster position="top-center" richColors />
       </I18nProvider>
     </QueryClientProvider>

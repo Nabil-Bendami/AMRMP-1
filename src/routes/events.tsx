@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { PageHero } from "@/components/ui/SectionHeader";
@@ -8,23 +7,7 @@ import { fetchEvents } from "@/services/content";
 import { mockEvents } from "@/data/mock";
 import { Calendar, MapPin } from "lucide-react";
 
-export const Route = createFileRoute("/events")({
-  head: () => ({
-    meta: [
-      { title: "Événements — AMRMP" },
-      {
-        name: "description",
-        content:
-          "Colloques, séminaires, conférences et tables rondes organisés par l'AMRMP autour du management public.",
-      },
-      { property: "og:title", content: "Événements AMRMP" },
-      { property: "og:description", content: "Le centre du savoir de l'AMRMP." },
-    ],
-  }),
-  component: EventsPage,
-});
-
-function EventsPage() {
+export default function EventsPage() {
   const { t, lang, dir } = useI18n();
   const eventsQ = useQuery({ queryKey: ["events"], queryFn: fetchEvents });
   const events = eventsQ.data && eventsQ.data.length > 0 ? eventsQ.data : mockEvents;

@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,18 +8,6 @@ import { PublicLayout } from "@/components/layout/PublicLayout";
 import { PageHero } from "@/components/ui/SectionHeader";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — AMRMP" },
-      { name: "description", content: "Contactez l'AMRMP pour toute question ou collaboration." },
-      { property: "og:title", content: "Contact AMRMP" },
-      { property: "og:description", content: "Une question, une proposition de collaboration ?" },
-    ],
-  }),
-  component: ContactPage,
-});
-
 const schema = z.object({
   name: z.string().trim().min(1, "Required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
@@ -30,7 +17,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-function ContactPage() {
+export default function ContactPage() {
   const { t, dir } = useI18n();
   const [submitting, setSubmitting] = useState(false);
   const {

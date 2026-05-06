@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";

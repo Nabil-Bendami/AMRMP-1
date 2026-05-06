@@ -1,7 +1,15 @@
+Je collecte le contenu actuel du README pour le reformuler proprement.
+
+Read [](file:///home/micro/Documents/my-project/AMRMP-1/README.md)
+
 # AMRMP
 
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](https://shields.io/)
+[![License](https://img.shields.io/badge/license-TBD-lightgrey?style=flat-square)](https://shields.io/)
+[![Version](https://img.shields.io/badge/version-unreleased-blue?style=flat-square)](https://shields.io/)
+
 ## Description
-AMRMP is a modern web application designed for knowledge management and connectivity. It provides a platform for users to access and share information efficiently, solving the problem of fragmented data storage and collaboration in organizational settings.
+AMRMP is a modern web application for knowledge management and connectivity. It centralizes content, improves collaboration, and simplifies access to research and organizational resources.
 
 ## Tech Stack
 - **Frontend Framework**: React with TypeScript
@@ -20,73 +28,89 @@ AMRMP is a modern web application designed for knowledge management and connecti
 - Type-safe development with TypeScript
 - Fast development server with hot reloading
 
-## Installation
-1. Ensure you have Bun installed on your system.
-2. Clone the repository and navigate to the project directory.
+## Getting Started
+### Install
+1. Ensure Bun is installed on your system.
+2. Clone the repository and navigate to the project folder.
 3. Install dependencies:
    ```bash
    bun install
    ```
-4. Set up your environment variables (see Environment Variables section).
-5. Start the development server:
-   ```bash
-   bun run dev
-   ```
 
-## Usage
-After installation, run the development server:
+### Setup
+1. Create a `.env` file in the root directory.
+2. Add the required Supabase configuration values (see Environment Variables below).
+
+### Run
+Start the development server:
 ```bash
 bun run dev
 ```
-The application will be available at `http://localhost:5173` (default Vite port).
 
-For production build:
+Open the app at:
+```text
+http://localhost:5173
+```
+
+### Production
+Build for production:
 ```bash
 bun run build
+```
+
+Preview the production build:
+```bash
 bun run preview
 ```
 
 ## Project Structure
-```
+```text
 AMRMP-1/
-├── public/          # Static assets
+├── public/          # Static assets served by Vite
 ├── src/
-│   ├── assets/      # Application assets
+│   ├── assets/      # Images and other media files
 │   ├── components/  # Reusable UI components
-│   ├── data/        # Data management
+│   ├── data/        # Local data definitions and mock data
 │   ├── hooks/       # Custom React hooks
-│   ├── integrations/# Third-party integrations
-│   ├── lib/         # Utility libraries
-│   ├── routes/      # Application routes
-│   ├── services/    # API services
-│   └── styles.css   # Global styles
+│   ├── integrations/# Third-party service setup (Supabase, etc.)
+│   ├── lib/         # Shared utility functions and helpers
+│   ├── routes/      # Application page components and routing
+│   ├── services/    # API and Supabase service calls
+│   └── styles.css   # Global CSS styles
 ├── supabase/        # Supabase configuration and migrations
-├── .env             # Environment variables
+├── .env             # Environment variables (local only)
 ├── package.json     # Project dependencies and scripts
 ├── vite.config.ts   # Vite configuration
 └── tsconfig.json    # TypeScript configuration
 ```
 
 ## Environment Variables
-Create a `.env` file in the root directory with the following variables:
-```
+Create a `.env` file in the project root with the following values:
+```env
 SUPABASE_URL=your_supabase_url
 SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 VITE_SUPABASE_PROJECT_ID=your_supabase_project_id
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 ```
-These are required for connecting to your Supabase backend.
+
+These variables are required to connect the frontend to Supabase.
 
 ## API Endpoints
-This is a frontend application that interacts with Supabase directly. No custom API endpoints are exposed. All data operations are handled through Supabase client libraries.
+This is a frontend application that communicates directly with Supabase. There are no custom backend API endpoints; all data operations use Supabase client libraries.
 
 ## Contributing
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run linting: `bun run lint`
-5. Format code: `bun run format`
+4. Run linting:
+   ```bash
+   bun run lint
+   ```
+5. Format code:
+   ```bash
+   bun run format
+   ```
 6. Submit a pull request
 
 ## License

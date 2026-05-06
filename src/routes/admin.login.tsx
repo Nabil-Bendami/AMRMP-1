@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,26 +9,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/admin/login")({
-  head: () => ({
-    meta: [
-      { title: "Connexion — AMRMP Admin" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
-  component: AdminLogin,
-});
-
 const schema = z.object({
   email: z.string().trim().email().max(255),
   password: z.string().min(6).max(72),
 });
 type FormData = z.infer<typeof schema>;
 
-function AdminLogin() {
+export default function AdminLogin() {
   const { t, dir } = useI18n();
   const navigate = useNavigate();
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, isAdmin } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [submitting, setSubmitting] = useState(false);
   const {
@@ -38,8 +28,8 @@ function AdminLogin() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   useEffect(() => {
-    if (!loading && isAuthenticated) navigate({ to: "/admin" });
-  }, [loading, isAuthenticated, navigate]);
+    if (!loading && isAuthenticated && isAdmin) navigate("/admin");
+  }, [loading, isAuthenticated, isAdmin, navigate]);
 
   const onSubmit = async ({ email, password }: FormData) => {
     setSubmitting(true);
@@ -90,7 +80,7 @@ function AdminLogin() {
 
           console.log('Step 3: Admin role verified, redirecting to /admin');
           toast.success("Connecté avec succès.");
-          navigate({ to: "/admin" });
+          navigate("/admin");
         } else {
           console.error('Step 1: No user in response');
           throw new Error('Erreur d\'authentification');

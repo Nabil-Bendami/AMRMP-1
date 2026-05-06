@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { PageHero } from "@/components/ui/SectionHeader";
@@ -7,23 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { fetchPublications } from "@/services/content";
 import { mockPublications } from "@/data/mock";
 
-export const Route = createFileRoute("/publications")({
-  head: () => ({
-    meta: [
-      { title: "Publications — AMRMP" },
-      {
-        name: "description",
-        content:
-          "Articles académiques, ouvrages collectifs et travaux de recherche en management public.",
-      },
-      { property: "og:title", content: "Publications AMRMP" },
-      { property: "og:description", content: "Recherche académique en management public." },
-    ],
-  }),
-  component: PublicationsPage,
-});
-
-function PublicationsPage() {
+export default function PublicationsPage() {
   const { t } = useI18n();
   const q = useQuery({ queryKey: ["publications"], queryFn: fetchPublications });
   const pubs = q.data && q.data.length > 0 ? q.data : mockPublications;
